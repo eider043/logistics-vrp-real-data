@@ -269,6 +269,9 @@ python main.py
 # Paso 2: Dashboard interactivo
 streamlit run dashboard.py
 ```
+## Demo
+
+[Tablero logístico](https://logistics-vrp-real-data-jmyjqrg8siaearrehdq9zb.streamlit.app/)
 
 ### Parametros configurables
 
