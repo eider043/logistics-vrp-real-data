@@ -48,9 +48,9 @@ st.markdown(f"""
                   text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }}
     .kpi-row {{ display: flex; justify-content: space-around; align-items: flex-end; }}
     .kpi-val {{ text-align: center; }}
-    .kpi-num {{ font-size: 1.15rem; font-weight: 800; color: {FONT}; }}
-    .kpi-num-opt {{ font-size: 1.15rem; font-weight: 800; color: #27AE60; }}
-    .kpi-num-save {{ font-size: 1.15rem; font-weight: 800; color: #E74C3C; }}
+    .kpi-num {{ font-size: 0.95rem; font-weight: 800; color: {FONT}; }}
+    .kpi-num-opt {{ font-size: 0.95rem; font-weight: 800; color: #27AE60; }}
+    .kpi-num-save {{ font-size: 0.95rem; font-weight: 800; color: #E74C3C; }}
     .kpi-lbl {{ font-size: 0.62rem; color: #AAA; }}
     .kpi-badge-save {{
         background: #EAFAF1; color: #27AE60; border-radius: 12px;
@@ -282,11 +282,18 @@ st.markdown(f"""
 # ── KPI Cards ─────────────────────────────────────────────────────────
 def kpi_card(titulo, val_base, val_opt, fmt="{:,.0f}", prefix="$",
              suffix="", invert=True, color_top="#AED6F1"):
+    # Abreviar numeros grandes
+    def abreviar(v):
+        if isinstance(v, (int, float)):
+            if abs(v) >= 1_000_000: return f"{prefix}{v/1_000_000:.1f}M{suffix}"
+            if abs(v) >= 1_000:     return f"{prefix}{v/1_000:.1f}K{suffix}"
+        return prefix + fmt.format(v) + suffix
+    
     ahorro = pct_ahorro(val_base, val_opt, invert=invert)
     badge_color = "#27AE60" if (ahorro > 0 and invert) or (ahorro < 0 and not invert) else "#E74C3C"
     ahorro_str  = f"{ahorro:+.1f}%"
-    b_str = prefix + fmt.format(val_base) + suffix
-    o_str = prefix + fmt.format(val_opt)  + suffix
+    b_str = abreviar(val_base)
+    o_str = abreviar(val_opt)
     return f"""
     <div class='kpi-card' style='border-top-color:{color_top}'>
         <div class='kpi-title'>{titulo}</div>
