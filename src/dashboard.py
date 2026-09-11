@@ -562,7 +562,7 @@ with tab_opt:
         fig_m = go.Figure()
 
         for v in vb[:30]:
-            fig_m.add_trace(go.Scattermapbox(
+            fig_m.add_trace(go.Scattermap(
                 lat=[v["cedi_lat"], v["cliente_lat"]],
                 lon=[v["cedi_lon"], v["cliente_lon"]],
                 mode="lines", opacity=0.3,
@@ -570,7 +570,7 @@ with tab_opt:
                 hoverinfo="skip", showlegend=False
             ))
         for v in vo[:30]:
-            fig_m.add_trace(go.Scattermapbox(
+            fig_m.add_trace(go.Scattermap(
                 lat=[v["cedi_lat"], v["cliente_lat"]],
                 lon=[v["cedi_lon"], v["cliente_lon"]],
                 mode="lines", opacity=0.5,
@@ -578,7 +578,7 @@ with tab_opt:
                 hoverinfo="skip", showlegend=False
             ))
 
-        fig_m.add_trace(go.Scattermapbox(
+        fig_m.add_trace(go.Scattermap(
             lat=cedis_df["lat"], lon=cedis_df["lon"],
             mode="markers+text",
             marker=dict(size=18, color=C["sidebar"], symbol="square"),
@@ -586,13 +586,13 @@ with tab_opt:
             textfont=dict(size=11, color="#1A1A1A"),
             name="Hubs"
         ))
-        fig_m.add_trace(go.Scattermapbox(
+        fig_m.add_trace(go.Scattermap(
             lat=dfb_f["cliente_lat"], lon=dfb_f["cliente_lon"],
             mode="markers",
             marker=dict(size=7, color=C["base"], opacity=0.7),
             name="Rutas Base", hoverinfo="skip"
         ))
-        fig_m.add_trace(go.Scattermapbox(
+        fig_m.add_trace(go.Scattermap(
             lat=dfo_f["cliente_lat"], lon=dfo_f["cliente_lon"],
             mode="markers",
             marker=dict(size=9, color=C["opt"], opacity=0.8),
@@ -602,7 +602,7 @@ with tab_opt:
             hoverinfo="text"
         ))
         fig_m.update_layout(
-            mapbox=dict(style="carto-positron", center=dict(lat=38.0, lon=-96.0), zoom=3.2),
+            map=dict(style="carto-positron", center=dict(lat=38.0, lon=-96.0), zoom=3.2),
             height=380, margin=dict(l=0,r=0,t=0,b=0),
             legend=dict(bgcolor="rgba(255,255,255,0.9)", font=dict(color=FONT, size=11),
                         x=0.01, y=0.99),
