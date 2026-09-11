@@ -17,6 +17,25 @@ sys.path.insert(0, os.path.join(BASE_DIR, "src"))
 
 st.set_page_config(page_title="VRP Logistics Optimizer", layout="wide", page_icon="truck")
 
+# Hack definitivo para tabs visibles
+st.markdown("""
+<script>
+function fixTabs() {
+    const tabs = document.querySelectorAll('[data-baseweb="tab"]');
+    tabs.forEach(tab => {
+        if (!tab.getAttribute('aria-selected') || tab.getAttribute('aria-selected') === 'false') {
+            tab.style.backgroundColor = '#D8B4E2';
+            tab.style.color = '#5D2A6E';
+            tab.style.visibility = 'visible';
+            tab.style.opacity = '1';
+            tab.style.border = '2px solid #9B59B6';
+        }
+    });
+}
+setInterval(fixTabs, 500);
+</script>
+""", unsafe_allow_html=True)
+
 FONT   = "#2C3E50"
 C = {
     "azul":    "#AED6F1", "verde":   "#A9DFBF", "amarillo": "#F9E79F",
@@ -67,21 +86,38 @@ st.markdown(f"""
     }}
     .truck-pct {{ font-size: 1.6rem; font-weight: 900; color: {FONT}; }}
     .truck-lbl {{ font-size: 0.75rem; color: #AAA; margin-bottom: 8px; }}
-    .stTabs [data-baseweb="tab-list"] {{
-        background-color: #EAF2FB; border-radius: 8px; padding: 3px; gap: 3px;
-    }}
-    .stTabs [data-baseweb="tab"] {{
-        background-color: #D8B4E2 !important; border-radius: 6px !important;
-        color: #5D2A6E !important; font-weight: 700 !important; font-size: 12px !important;
-        padding: 7px 14px !important; border: 2px solid #9B59B6 !important;
-        white-space: nowrap !important; visibility: visible !important; opacity: 1 !important;
-    }}
-    .stTabs [data-baseweb="tab"] * {{ color: #5D2A6E !important; visibility: visible !important; }}
-    .stTabs [aria-selected="true"] {{ background-color: {C['sidebar']} !important; color: black !important; }}
-    .stTabs [aria-selected="true"] * {{ color: black !important; }}
     .monitor-card {{
         background: white; border-radius: 10px; padding: 14px;
         box-shadow: 0 2px 6px rgba(0,0,0,0.07); margin-bottom: 10px;
+    }}
+    .stTabs [data-baseweb="tab-list"] {{
+        background-color: #EAF2FB; border-radius: 8px; padding: 3px; gap: 3px;
+    }}
+    div[data-baseweb="tab"] {{
+        background-color: #D8B4E2 !important;
+        border-radius: 6px !important;
+        color: #5D2A6E !important;
+        font-weight: 700 !important;
+        font-size: 12px !important;
+        padding: 7px 14px !important;
+        border: 2px solid #9B59B6 !important;
+        white-space: nowrap !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }}
+    div[data-baseweb="tab"] p,
+    div[data-baseweb="tab"] span {{
+        color: #5D2A6E !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }}
+    div[data-baseweb="tab"][aria-selected="true"] {{
+        background-color: {C['sidebar']} !important;
+        color: white !important;
+    }}
+    div[data-baseweb="tab"][aria-selected="true"] p,
+    div[data-baseweb="tab"][aria-selected="true"] span {{
+        color: white !important;
     }}
 </style>
 """, unsafe_allow_html=True)
