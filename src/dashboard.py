@@ -90,7 +90,7 @@ st.markdown(f"""
 # ── Funciones de layout ───────────────────────────────────────────────
 def apply_layout(fig, height=360, **kwargs):
     base = dict(
-        height=height, plot_bgcolor="white", paper_bgcolor="white",
+        height=height, template="plotly_white", plot_bgcolor="white", paper_bgcolor="white",
         font=dict(color=FONT, size=11),
         title_font=dict(color=FONT, size=13, family="Arial Black"),
         legend=dict(font=dict(color=FONT, size=10), bgcolor="rgba(255,255,255,0.9)",
