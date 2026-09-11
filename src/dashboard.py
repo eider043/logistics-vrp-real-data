@@ -91,6 +91,7 @@ st.markdown(f"""
 def apply_layout(fig, height=360, **kwargs):
     base = dict(
         height=height, template="plotly_white", plot_bgcolor="white", paper_bgcolor="white",
+        title=kwargs.pop("title", ""),
         font=dict(color=FONT, size=11),
         title_font=dict(color=FONT, size=13, family="Arial Black"),
         legend=dict(font=dict(color=FONT, size=10), bgcolor="rgba(255,255,255,0.9)",
@@ -365,7 +366,7 @@ with tab_opt:
                          labels={"costo_total": "Costo Total (USD)",
                                  "ocup_peso_pct": "% Capacidad utilizada kg"},
                          hover_data=["cedi_nombre"])
-        apply_layout(fig, height=320)
+        apply_layout(fig, height=320, title="")
         st.plotly_chart(fig, use_container_width=True)
 
     # ── Evolucion capacidad utilizada por hub ────────────────────────
@@ -387,7 +388,7 @@ with tab_opt:
                                text=[f"{v:.1f}%" for v in ocup_o.values],
                                textposition="outside",
                                textfont=dict(color=FONT, size=10)))
-        apply_layout(fig2, height=320, barmode="group",
+        apply_layout(fig2, height=320, title="", barmode="group",
                      yaxis=dict(tickfont=dict(color=FONT), title="% Ocup. Peso",
                                 gridcolor="#F0F0F0", range=[0, 110]))
         st.plotly_chart(fig2, use_container_width=True)
@@ -479,7 +480,7 @@ with tab_opt:
                                    text=[f"${v:.2f}" for v in vt_b["costo_kg"]],
                                    textposition="top center",
                                    textfont=dict(color="#E74C3C", size=9)))
-        apply_layout(fig3, height=320, barmode="group",
+        apply_layout(fig3, height=320, title="", barmode="group",
                      xaxis=dict(tickfont=dict(color=FONT, size=8), tickangle=-20),
                      yaxis=dict(tickfont=dict(color=FONT), title="Nro. Viajes",
                                 gridcolor="#F0F0F0"),
@@ -510,7 +511,7 @@ with tab_opt:
                                text=vc["viajes_o"].astype(int),
                                textfont=dict(color=FONT, size=9),
                                textposition="inside"))
-        apply_layout(fig4, height=320, barmode="group",
+        apply_layout(fig4, height=320, title="", barmode="group",
                      xaxis=dict(tickfont=dict(color=FONT), title="Viajes"),
                      yaxis=dict(tickfont=dict(color=FONT, size=9)))
         st.plotly_chart(fig4, use_container_width=True)
@@ -729,7 +730,7 @@ with tab_mon:
             annotation_text="Semanas futuras",
             annotation_font=dict(color=FONT, size=10)
         )
-        apply_layout(fig_mon1, height=320,
+        apply_layout(fig_mon1, height=320, title="",
                      xaxis=dict(tickfont=dict(color=FONT), title="Semana"),
                      yaxis=dict(tickfont=dict(color=FONT), title="Costo Flete (USD)",
                                 gridcolor="#F0F0F0"))
@@ -754,7 +755,7 @@ with tab_mon:
         fig_mon2.add_hline(y=70, line_dash="dot", line_color="#E74C3C",
                            annotation_text="Meta 70%",
                            annotation_font_color=FONT)
-        apply_layout(fig_mon2, height=320,
+        apply_layout(fig_mon2, height=320, title="",
                      xaxis=dict(tickfont=dict(color=FONT), title="Semana"),
                      yaxis=dict(tickfont=dict(color=FONT), title="Ocup. Peso (%)",
                                 gridcolor="#F0F0F0", range=[0, 120]))
@@ -775,7 +776,7 @@ with tab_mon:
             y=[v for v in fut_viajes if v is not None],
             name="Año actual (con modelo)", marker_color=C["opt"]
         ))
-        apply_layout(fig_mon3, height=300, barmode="group",
+        apply_layout(fig_mon3, height=300, title="", barmode="group",
                      xaxis=dict(tickfont=dict(color=FONT), title="Semana"),
                      yaxis=dict(tickfont=dict(color=FONT), title="Nro. Viajes",
                                 gridcolor="#F0F0F0"))
@@ -804,7 +805,7 @@ with tab_mon:
             textfont=dict(color=C["opt"], size=8),
             marker=dict(size=8)
         ))
-        apply_layout(fig_mon4, height=300,
+        apply_layout(fig_mon4, height=300, title="",
                      xaxis=dict(tickfont=dict(color=FONT), title="Semana"),
                      yaxis=dict(tickfont=dict(color=FONT), title="USD/kg",
                                 gridcolor="#F0F0F0"))
