@@ -71,14 +71,14 @@ st.markdown(f"""
         background-color: #EAF2FB; border-radius: 8px; padding: 3px; gap: 3px;
     }}
     .stTabs [data-baseweb="tab"] {{
-        background-color: #D6EAF8 !important; border-radius: 6px !important;
-        color: #1A252F !important; font-weight: 700 !important; font-size: 12px !important;
-        padding: 7px 14px !important; border: 2px solid #5D8AA8 !important;
+        background-color: #D8B4E2 !important; border-radius: 6px !important;
+        color: #5D2A6E !important; font-weight: 700 !important; font-size: 12px !important;
+        padding: 7px 14px !important; border: 2px solid #9B59B6 !important;
         white-space: nowrap !important; visibility: visible !important; opacity: 1 !important;
     }}
-    .stTabs [data-baseweb="tab"] * {{ color: #1A252F !important; visibility: visible !important; }}
-    .stTabs [aria-selected="true"] {{ background-color: {C['sidebar']} !important; color: white !important; }}
-    .stTabs [aria-selected="true"] * {{ color: white !important; }}
+    .stTabs [data-baseweb="tab"] * {{ color: #5D2A6E !important; visibility: visible !important; }}
+    .stTabs [aria-selected="true"] {{ background-color: {C['sidebar']} !important; color: black !important; }}
+    .stTabs [aria-selected="true"] * {{ color: black !important; }}
     .monitor-card {{
         background: white; border-radius: 10px; padding: 14px;
         box-shadow: 0 2px 6px rgba(0,0,0,0.07); margin-bottom: 10px;
