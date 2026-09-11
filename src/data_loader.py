@@ -70,20 +70,33 @@ def haversine(lat1, lon1, lat2, lon2):
 # ── Descarga via Kaggle API ───────────────────────────────────────────
 
 def _check_kaggle_credentials():
-    """Verifica que existan credenciales de Kaggle."""
-    kaggle_json = os.path.expanduser("~/.kaggle/kaggle.json")
-    if not os.path.exists(kaggle_json):
-        raise FileNotFoundError(
-            "Credenciales de Kaggle no encontradas.\n"
-            "1. Ve a https://www.kaggle.com/account\n"
-            "2. Crea un API token\n"
-            f"3. Guarda kaggle.json en {kaggle_json}"
-        )
-    # Permisos correctos en Linux/Mac
+    import os
+    # Intentar desde Streamlit secrets
     try:
-        os.chmod(kaggle_json, 0o600)
+        import streamlit as st
+        os.environ["KAGGLE_USERNAME"] = st.secrets["KAGGLE_USERNAME"]
+        os.environ["KAGGLE_KEY"]      = st.secrets["KAGGLE_KEY"]
+        return
     except Exception:
         pass
+
+    # Intentar desde variables de entorno
+    if os.environ.get("KAGGLE_USERNAME") and os.environ.get("KAGGLE_KEY"):
+        return
+
+    # Intentar desde archivo local
+    kaggle_json = os.path.expanduser("~/.kaggle/kaggle.json")
+    if os.path.exists(kaggle_json):
+        try:
+            os.chmod(kaggle_json, 0o600)
+        except Exception:
+            pass
+        return
+
+    raise FileNotFoundError(
+        "Credenciales de Kaggle no encontradas.\n"
+        "Agrega KAGGLE_USERNAME y KAGGLE_KEY en Streamlit Secrets."
+    )
 
 
 def download_dataset(force=False):
